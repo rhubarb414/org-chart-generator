@@ -1,3 +1,7 @@
 .navbar {
     background-color: indigo;
 }
+
+.card-header {
+    background-color: goldenrod;
+}
