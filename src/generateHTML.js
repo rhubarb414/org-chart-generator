@@ -18,12 +18,12 @@ const generateHTML = (data) =>
 
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-                <h5 class="card-title text-light">Mr. Boss</h5>
+                <h5 class="card-title text-light">${data.name}</h5>
                 <h6 class="card-subtitle mb-2 text-light">Manager type</h6>
             </div>
             <div class="card-body">
-                <li class="list-group-item"><span class="fw-bold">ID:</span> 001</li>
-                <li class="list-group-item"><span class="fw-bold">Email:</span> ceo@ipo.com</li>
+                <li class="list-group-item"><span class="fw-bold">ID:</span>${data.id}</li>
+                <li class="list-group-item"><span class="fw-bold">Email:</span>${data.email}</li>
                 <li class="list-group-item"><span class="fw-bold">GitHub:</span> <a href="#">more-of-an-ideas-guy</a></li>
             </div>
         </div>
