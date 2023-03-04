@@ -1,17 +1,20 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const jest = require("jest");
+const employee = require("./lib/employee");
+const employeeList = [];
+
 const generateHTML = require("./src/generateHTML.js");
 
 //array of questions for inquirer
-const questions = [
+const managerQs = [
   {
     type: "input",
     name: "name",
-    message: "Enter employee name",
+    message: "Enter manager name",
     validate(value) {
       if (!value) {
-        return "Name cannot be empty";
+        return "Manager name cannot be empty";
       } else {
         return true;
       }
@@ -20,10 +23,10 @@ const questions = [
   {
     type: "input",
     name: "id",
-    message: "Enter employee ID",
+    message: "Enter manager ID",
     validate(value) {
       if (!value) {
-        return "Name cannot be empty";
+        return "ID cannot be empty";
       } else {
         return true;
       }
@@ -33,10 +36,23 @@ const questions = [
   {
     type: "input",
     name: "email",
-    message: "Enter employee email",
+    message: "Enter manager email",
     validate(value) {
       if (!value) {
-        return "Name cannot be empty";
+        return "Email cannot be empty";
+      } else {
+        return true;
+      }
+    },
+  },
+
+  {
+    type: "input",
+    name: "office",
+    message: "Enter manager office number",
+    validate(value) {
+      if (!value) {
+        return "Office number cannot be empty";
       } else {
         return true;
       }
@@ -44,14 +60,28 @@ const questions = [
   },
 ];
 
+// const addManager = () => {
+//   inquirer
+//     .prompt(managerQs)
+//     .then((responses) => {
+//       const newEmployee = new employee(responses);
+//       employeeList.push(newEmployee);
+//       console.log(employeeList);
+//       //   writeToFile("./dist/index.html", HTMLContent);
+//     })
+//     .catch((err) => console.error(err));
+// };
+
 function init() {
-  inquirer
-    .prompt(questions)
-    .then((responses) => {
-      const HTMLContent = generateHTML(responses);
-      writeToFile("./dist/index.html", HTMLContent);
-    })
-    .catch((err) => console.error(err));
+  //   inquirer
+  //     .prompt(questions)
+  //     .then((responses) => {
+  //       const newEmployee = new employee(responses);
+  //       employeeList.push(newEmployee);
+  //       console.log(employeeList);
+  //       //   writeToFile("./dist/index.html", HTMLContent);
+  //     })
+  //     .catch((err) => console.error(err));
 }
 
 //create index.html
