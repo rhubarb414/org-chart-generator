@@ -58,17 +58,23 @@ const managerQs = [
       }
     },
   },
+  {
+    type: "list",
+    name: "addNew",
+    message: "Would you like to add another employee?",
+    choices: ["Yes", "No"],
+  },
 ];
 
-//Manager questions for inquirer
-const managerQs = [
+//questions for engineer
+const engineerQs = [
   {
     type: "input",
     name: "name",
-    message: "Enter manager name",
+    message: "Enter engineer name",
     validate(value) {
       if (!value) {
-        return "Manager name cannot be empty";
+        return "Name cannot be empty";
       } else {
         return true;
       }
@@ -77,7 +83,7 @@ const managerQs = [
   {
     type: "input",
     name: "id",
-    message: "Enter manager ID",
+    message: "Enter engineer ID",
     validate(value) {
       if (!value) {
         return "ID cannot be empty";
@@ -90,7 +96,7 @@ const managerQs = [
   {
     type: "input",
     name: "email",
-    message: "Enter manager email",
+    message: "Enter engineer email",
     validate(value) {
       if (!value) {
         return "Email cannot be empty";
@@ -102,46 +108,85 @@ const managerQs = [
 
   {
     type: "input",
-    name: "office",
-    message: "Enter manager office number",
+    name: "github",
+    message: "Enter engineer's GitHub username",
     validate(value) {
       if (!value) {
-        return "Office number cannot be empty";
+        return "Username be empty";
       } else {
         return true;
       }
     },
   },
+  {
+    type: "list",
+    name: "addNew",
+    message: "Would you like to add another employee?",
+    choices: ["Yes", "No"],
+  },
 ];
+
+const employeePrompt = {
+  type: "list",
+  name: "empType",
+  message: "Choose type of employee",
+  choices: ["Engineer", "Intern"],
+};
+
+const createEmployee = () => {
+  inquirer.prompt(employeePrompt).then((response) => {
+    console.log("createEmployee response = " + response);
+    if (response.empType === "Engineer") {
+      addEngineer();
+    } else {
+      addIntern();
+    }
+  });
+};
+
+const addEngineer = () => {
+  inquirer
+    .prompt(engineerQs)
+    .then((responses) => {
+      const newEngineer = new employee( //change to engineer
+        responses.name,
+        responses.id,
+        responses.email
+      );
+      employeeList.push(newEngineer);
+      console.log(employeeList); // delete
+      if (responses.addNew === "Yes") {
+        createEmployee();
+      }
+      //   const HTMLContent = generateHTML(responses); // move
+      //   writeToFile("./dist/index.html", HTMLContent); //move
+    })
+    .catch((err) => console.error(err));
+};
+const addIntern = () => {};
 
 const addManager = () => {
   inquirer
     .prompt(managerQs)
     .then((responses) => {
-      const newEmployee = new employee(
+      const newManager = new employee( //change to manager
         responses.name,
         responses.id,
         responses.email
       );
-      employeeList.push(newEmployee);
+      employeeList.push(newManager);
       console.log(employeeList); // delete
-      const HTMLContent = generateHTML(responses); // delete
-      writeToFile("./dist/index.html", HTMLContent);
+      if (responses.addNew === "Yes") {
+        createEmployee();
+      }
+      //   const HTMLContent = generateHTML(responses); // move
+      //   writeToFile("./dist/index.html", HTMLContent); //move
     })
     .catch((err) => console.error(err));
 };
 
 function init() {
   addManager();
-  //   inquirer
-  //     .prompt(questions)
-  //     .then((responses) => {
-  //       const newEmployee = new employee(responses);
-  //       employeeList.push(newEmployee);
-  //       console.log(employeeList);
-  //       //   writeToFile("./dist/index.html", HTMLContent);
-  //     })
-  //     .catch((err) => console.error(err));
 }
 
 //create index.html
