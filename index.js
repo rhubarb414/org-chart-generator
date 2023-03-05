@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const jest = require("jest");
-// const Employee = require("./lib/employee"); // not sure I need this if all employee types are extended from it
+
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
@@ -200,7 +200,28 @@ const employeePrompt = {
 };
 
 //~~~~~~~~~~~~ END Inquirer prompts ~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const addManager = () => {
+  inquirer
+    .prompt(managerQs)
+    .then((responses) => {
+      const newManager = new Manager(
+        responses.name,
+        responses.id,
+        responses.email,
+        responses.office
+      );
+      employeeList.push(newManager);
+      console.log(employeeList); // delete
+      if (responses.addNew === "Yes") {
+        createEngOrInt();
+      }
+      //   const HTMLContent = generateHTML(responses); // move
+      //   writeToFile("./dist/index.html", HTMLContent); //move
+    })
+    .catch((err) => console.error(err));
+};
 
 const createEngOrInt = () => {
   inquirer.prompt(employeePrompt).then((response) => {
@@ -228,8 +249,6 @@ const addEngineer = () => {
       if (responses.addNew === "Yes") {
         createEngOrInt();
       }
-      //   const HTMLContent = generateHTML(responses); // move
-      //   writeToFile("./dist/index.html", HTMLContent); //move
     })
     .catch((err) => console.error(err));
 };
@@ -249,41 +268,18 @@ const addIntern = () => {
         createEngOrInt();
       }
     })
-    //   const HTMLContent = generateHTML(responses); // move
-    //   writeToFile("./dist/index.html", HTMLContent); //move
     .catch((err) => console.error(err));
 };
-
-const addManager = () => {
-  inquirer
-    .prompt(managerQs)
-    .then((responses) => {
-      const newManager = new Manager( //change to manager
-        responses.name,
-        responses.id,
-        responses.email,
-        responses.office
-      );
-      employeeList.push(newManager);
-      console.log(employeeList); // delete
-      if (responses.addNew === "Yes") {
-        createEngOrInt();
-      }
-      //   const HTMLContent = generateHTML(responses); // move
-      //   writeToFile("./dist/index.html", HTMLContent); //move
-    })
-    .catch((err) => console.error(err));
-};
-
-function init() {
-  addManager();
-}
 
 //create index.html
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
     err ? console.log(err) : console.log("index.html successfully created.")
   );
+}
+
+function init() {
+  addManager();
 }
 
 // Function call to initialize app
