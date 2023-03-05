@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const jest = require("jest");
-const employee = require("./lib/employee");
+const Employee = require("./lib/employee");
+const Manager = require("./lib/manager");
 const employeeList = [];
 
 const generateHTML = require("./src/generateHTML.js");
@@ -9,7 +10,7 @@ const generateHTML = require("./src/generateHTML.js");
 //~~~~~~~~~~~~ BEGIN Inquirer prompts ~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-//Manager questions for manager
+// Manager questions for inquirer
 const managerQs = [
   {
     type: "input",
@@ -199,9 +200,9 @@ const employeePrompt = {
 //~~~~~~~~~~~~ END Inquirer prompts ~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const createEmployee = () => {
+const createEngOrInt = () => {
   inquirer.prompt(employeePrompt).then((response) => {
-    console.log("createEmployee response = " + response);
+    console.log("createEngOrInt response = " + response);
     if (response.empType === "Engineer") {
       addEngineer();
     } else {
@@ -222,7 +223,7 @@ const addEngineer = () => {
       employeeList.push(newEngineer);
       console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
-        createEmployee();
+        createEngOrInt();
       }
       //   const HTMLContent = generateHTML(responses); // move
       //   writeToFile("./dist/index.html", HTMLContent); //move
@@ -241,7 +242,7 @@ const addIntern = () => {
       employeeList.push(newIntern);
       console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
-        createEmployee();
+        createEngOrInt();
       }
     })
     //   const HTMLContent = generateHTML(responses); // move
@@ -253,15 +254,16 @@ const addManager = () => {
   inquirer
     .prompt(managerQs)
     .then((responses) => {
-      const newManager = new employee( //change to manager
+      const newManager = new Manager( //change to manager
         responses.name,
         responses.id,
-        responses.email
+        responses.email,
+        responses.office
       );
       employeeList.push(newManager);
       console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
-        createEmployee();
+        createEngOrInt();
       }
       //   const HTMLContent = generateHTML(responses); // move
       //   writeToFile("./dist/index.html", HTMLContent); //move
