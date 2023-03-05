@@ -1,8 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const jest = require("jest");
-const Employee = require("./lib/employee");
+// const Employee = require("./lib/employee"); // not sure I need this if all employee types are extended from it
 const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
 const employeeList = [];
 
 const generateHTML = require("./src/generateHTML.js");
@@ -215,10 +217,11 @@ const addEngineer = () => {
   inquirer
     .prompt(engineerQs)
     .then((responses) => {
-      const newEngineer = new employee( //change to engineer
+      const newEngineer = new Engineer(
         responses.name,
         responses.id,
-        responses.email
+        responses.email,
+        responses.github
       );
       employeeList.push(newEngineer);
       console.log(employeeList); // delete
@@ -234,10 +237,11 @@ const addIntern = () => {
   inquirer
     .prompt(internQs)
     .then((responses) => {
-      const newIntern = new employee( //change to intern
+      const newIntern = new Intern(
         responses.name,
         responses.id,
-        responses.email
+        responses.email,
+        responses.school
       );
       employeeList.push(newIntern);
       console.log(employeeList); // delete
