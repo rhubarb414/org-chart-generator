@@ -6,7 +6,10 @@ const employeeList = [];
 
 const generateHTML = require("./src/generateHTML.js");
 
-//Manager questions for inquirer
+//~~~~~~~~~~~~ BEGIN Inquirer prompts ~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+//Manager questions for manager
 const managerQs = [
   {
     type: "input",
@@ -112,7 +115,67 @@ const engineerQs = [
     message: "Enter engineer's GitHub username",
     validate(value) {
       if (!value) {
-        return "Username be empty";
+        return "Username cannot be empty";
+      } else {
+        return true;
+      }
+    },
+  },
+  {
+    type: "list",
+    name: "addNew",
+    message: "Would you like to add another employee?",
+    choices: ["Yes", "No"],
+  },
+];
+
+//questions for intern
+const internQs = [
+  {
+    type: "input",
+    name: "name",
+    message: "Enter intern name",
+    validate(value) {
+      if (!value) {
+        return "Name cannot be empty";
+      } else {
+        return true;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "Enter intern ID",
+    validate(value) {
+      if (!value) {
+        return "ID cannot be empty";
+      } else {
+        return true;
+      }
+    },
+  },
+
+  {
+    type: "input",
+    name: "email",
+    message: "Enter intern email",
+    validate(value) {
+      if (!value) {
+        return "Email cannot be empty";
+      } else {
+        return true;
+      }
+    },
+  },
+
+  {
+    type: "input",
+    name: "school",
+    message: "Enter intern's school name",
+    validate(value) {
+      if (!value) {
+        return "School name cannot be empty";
       } else {
         return true;
       }
@@ -132,6 +195,9 @@ const employeePrompt = {
   message: "Choose type of employee",
   choices: ["Engineer", "Intern"],
 };
+
+//~~~~~~~~~~~~ END Inquirer prompts ~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const createEmployee = () => {
   inquirer.prompt(employeePrompt).then((response) => {
@@ -163,7 +229,25 @@ const addEngineer = () => {
     })
     .catch((err) => console.error(err));
 };
-const addIntern = () => {};
+const addIntern = () => {
+  inquirer
+    .prompt(internQs)
+    .then((responses) => {
+      const newIntern = new employee( //change to intern
+        responses.name,
+        responses.id,
+        responses.email
+      );
+      employeeList.push(newIntern);
+      console.log(employeeList); // delete
+      if (responses.addNew === "Yes") {
+        createEmployee();
+      }
+    })
+    //   const HTMLContent = generateHTML(responses); // move
+    //   writeToFile("./dist/index.html", HTMLContent); //move
+    .catch((err) => console.error(err));
+};
 
 const addManager = () => {
   inquirer
