@@ -8,6 +8,8 @@ const Intern = require("./lib/intern");
 const employeeList = [];
 
 const generateHTML = require("./src/generateHTML.js");
+// const addEngineerHTML = require("./src/addEngineerHTML.js");
+// const addInternHTML = require("./src/addInternHTML.js");
 
 //~~~~~~~~~~~~ BEGIN Inquirer prompts ~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -214,15 +216,25 @@ const addManager = () => {
       );
       employeeList.push(newManager);
       console.log(employeeList); // delete
+      generateMgrHTML(mgrArray);
       if (responses.addNew === "Yes") {
         createEngOrInt();
+      } else {
+        filterEmployees(); //later generateHTML
       }
+
       //   const HTMLContent = generateHTML(responses); // move
       //   writeToFile("./dist/index.html", HTMLContent); //move
     })
     .catch((err) => console.error(err));
 };
 
+const generateMgrHTML = (mgrArray) => {
+  mgrArray.forEach((manager) => {
+    console.log("manager = " + manager);
+    generateHTML.addManagerHTML(manager);
+  });
+};
 const createEngOrInt = () => {
   inquirer.prompt(employeePrompt).then((response) => {
     console.log("createEngOrInt response = " + response);
@@ -248,9 +260,20 @@ const addEngineer = () => {
       console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
         createEngOrInt();
+      } else {
+        filterEmployees(); //later generateHTML
       }
+      //   generateMgrHTML(mgrArray);
+      //   generateEngHTML(engArray);
     })
     .catch((err) => console.error(err));
+};
+
+const generateEngHTML = (engArray) => {
+  engArray.forEach((engineer) => {
+    console.log("engineer = " + engineer);
+    generateHTML.addEngineerHTML(engineer);
+  });
 };
 const addIntern = () => {
   inquirer
@@ -266,11 +289,53 @@ const addIntern = () => {
       console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
         createEngOrInt();
+      } else {
+        filterEmployees(); //later generateHTML
       }
     })
     .catch((err) => console.error(err));
 };
 
+const generateIntHTML = (engArray) => {
+  engArray.forEach((engineer) => {
+    console.log("engineer = " + engineer);
+    generateHTML.addInternHTML(engineer);
+  });
+};
+
+//filter employee types
+const mgrArray = [];
+const engArray = [];
+const intArray = [];
+
+//comment out for now.. works though
+// const filterEmployees = () => {
+//   employeeList.forEach((employee) => {
+//     if (employee.getRole() === "Manager") {
+//       mgrArray.push(employee);
+//     } else if (employee.getRole() === "Engineer") {
+//       engArray.push(employee);
+//     } else {
+//       intArray.push(employee);
+//     }
+//   });
+//   console.log(mgrArray);
+//   console.log(engArray);
+//   console.log(intArray);
+// };
+
+const filterEmployees = () => {
+  employeeList.forEach((employee) => {
+    if (employee.getRole() === "Manager") {
+      generateHTML.addManagerHTML(employee);
+    } else if (employee.getRole() === "Engineer") {
+      generateHTML.addEngineerHTML(employee);
+    } else {
+      console.log(employee.getRole());
+      generateHTML.addInternHTML(employee);
+    }
+  });
+};
 //create index.html
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
