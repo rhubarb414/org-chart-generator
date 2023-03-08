@@ -8,8 +8,6 @@ const Intern = require("./lib/intern");
 const employeeList = [];
 
 const generateHTML = require("./src/generateHTML.js");
-// const addEngineerHTML = require("./src/addEngineerHTML.js");
-// const addInternHTML = require("./src/addInternHTML.js");
 
 //~~~~~~~~~~~~ BEGIN Inquirer prompts ~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -215,34 +213,15 @@ const addManager = () => {
         responses.office
       );
       employeeList.push(newManager);
-      console.log(employeeList); // delete
-      generateMgrHTML(mgrArray);
       if (responses.addNew === "Yes") {
         createEngOrInt();
       } else {
-        filterEmployees(); //later generateHTML
-        const HTMLContent = generateHTML.concatHTML(); // move
-        writeToFile("./dist/index.html", HTMLContent); //move
+        filterEmployees();
+        const HTMLContent = generateHTML.concatHTML();
+        writeToFile("./dist/index.html", HTMLContent);
       }
     })
     .catch((err) => console.error(err));
-};
-
-const generateMgrHTML = (mgrArray) => {
-  mgrArray.forEach((manager) => {
-    console.log("manager = " + manager);
-    generateHTML.addManagerHTML(manager);
-  });
-};
-const createEngOrInt = () => {
-  inquirer.prompt(employeePrompt).then((response) => {
-    console.log("createEngOrInt response = " + response);
-    if (response.empType === "Engineer") {
-      addEngineer();
-    } else {
-      addIntern();
-    }
-  });
 };
 
 const addEngineer = () => {
@@ -256,26 +235,17 @@ const addEngineer = () => {
         responses.github
       );
       employeeList.push(newEngineer);
-      console.log(employeeList); // delete
       if (responses.addNew === "Yes") {
         createEngOrInt();
       } else {
-        filterEmployees(); //later generateHTML
-        const HTMLContent = generateHTML.concatHTML(); // move
-        writeToFile("./dist/index.html", HTMLContent); //move
+        filterEmployees();
+        const HTMLContent = generateHTML.concatHTML();
+        writeToFile("./dist/index.html", HTMLContent);
       }
-      //   generateMgrHTML(mgrArray);
-      //   generateEngHTML(engArray);
     })
     .catch((err) => console.error(err));
 };
 
-const generateEngHTML = (engArray) => {
-  engArray.forEach((engineer) => {
-    console.log("engineer = " + engineer);
-    generateHTML.addEngineerHTML(engineer);
-  });
-};
 const addIntern = () => {
   inquirer
     .prompt(internQs)
@@ -287,46 +257,31 @@ const addIntern = () => {
         responses.school
       );
       employeeList.push(newIntern);
-      console.log(employeeList); // delete
+
       if (responses.addNew === "Yes") {
         createEngOrInt();
       } else {
-        filterEmployees(); //later generateHTML
-        const HTMLContent = generateHTML.concatHTML(); // move
-        writeToFile("./dist/index.html", HTMLContent); //move
+        filterEmployees();
+        const HTMLContent = generateHTML.concatHTML();
+        writeToFile("./dist/index.html", HTMLContent);
       }
     })
     .catch((err) => console.error(err));
 };
 
-const generateIntHTML = (engArray) => {
-  engArray.forEach((engineer) => {
-    console.log("engineer = " + engineer);
-    generateHTML.addInternHTML(engineer);
+// Inquirer section for asking whether to add new Engineer or Intern
+const createEngOrInt = () => {
+  inquirer.prompt(employeePrompt).then((response) => {
+    console.log("createEngOrInt response = " + response);
+    if (response.empType === "Engineer") {
+      addEngineer();
+    } else {
+      addIntern();
+    }
   });
 };
 
-//filter employee types
-const mgrArray = [];
-const engArray = [];
-const intArray = [];
-
-//comment out for now.. works though
-// const filterEmployees = () => {
-//   employeeList.forEach((employee) => {
-//     if (employee.getRole() === "Manager") {
-//       mgrArray.push(employee);
-//     } else if (employee.getRole() === "Engineer") {
-//       engArray.push(employee);
-//     } else {
-//       intArray.push(employee);
-//     }
-//   });
-//   console.log(mgrArray);
-//   console.log(engArray);
-//   console.log(intArray);
-// };
-
+// Calls getRole() object method to sort employees and generates page HTML
 const filterEmployees = () => {
   employeeList.forEach((employee) => {
     if (employee.getRole() === "Manager") {
@@ -334,12 +289,12 @@ const filterEmployees = () => {
     } else if (employee.getRole() === "Engineer") {
       generateHTML.addEngineerHTML(employee);
     } else {
-      console.log(employee.getRole());
       generateHTML.addInternHTML(employee);
     }
   });
 };
-//create index.html
+
+// Create index.html
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
     err ? console.log(err) : console.log("index.html successfully created.")
@@ -347,70 +302,8 @@ function writeToFile(fileName, data) {
 }
 
 function init() {
-  addManager();
+  addManager(); //Start by adding manager, other prompts will follow once this is called.
 }
 
 // Function call to initialize app
 init();
-
-///
-// //array of questions for inquirer
-// const questions = [
-//   {
-//     type: "input",
-//     name: "name",
-//     message: "Enter employee name",
-//     validate(value) {
-//       if (!value) {
-//         return "Name cannot be empty";
-//       } else {
-//         return true;
-//       }
-//     },
-//   },
-//   {
-//     type: "input",
-//     name: "id",
-//     message: "Enter employee ID",
-//     validate(value) {
-//       if (!value) {
-//         return "Name cannot be empty";
-//       } else {
-//         return true;
-//       }
-//     },
-//   },
-
-//   {
-//     type: "input",
-//     name: "email",
-//     message: "Enter employee email",
-//     validate(value) {
-//       if (!value) {
-//         return "Name cannot be empty";
-//       } else {
-//         return true;
-//       }
-//     },
-//   },
-// ];
-
-// function init() {
-//   inquirer
-//     .prompt(questions)
-//     .then((responses) => {
-//       const HTMLContent = generateHTML(responses);
-//       writeToFile("./dist/index.html", HTMLContent);
-//     })
-//     .catch((err) => console.error(err));
-// }
-
-// //create index.html
-// function writeToFile(fileName, data) {
-//   fs.writeFile(fileName, data, (err) =>
-//     err ? console.log(err) : console.log("index.html successfully created.")
-//   );
-// }
-
-// // Function call to initialize app
-// init();
