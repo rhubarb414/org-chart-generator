@@ -221,10 +221,9 @@ const addManager = () => {
         createEngOrInt();
       } else {
         filterEmployees(); //later generateHTML
+        const HTMLContent = generateHTML.concatHTML(); // move
+        writeToFile("./dist/index.html", HTMLContent); //move
       }
-
-      //   const HTMLContent = generateHTML(responses); // move
-      //   writeToFile("./dist/index.html", HTMLContent); //move
     })
     .catch((err) => console.error(err));
 };
@@ -262,6 +261,8 @@ const addEngineer = () => {
         createEngOrInt();
       } else {
         filterEmployees(); //later generateHTML
+        const HTMLContent = generateHTML.concatHTML(); // move
+        writeToFile("./dist/index.html", HTMLContent); //move
       }
       //   generateMgrHTML(mgrArray);
       //   generateEngHTML(engArray);
@@ -291,6 +292,8 @@ const addIntern = () => {
         createEngOrInt();
       } else {
         filterEmployees(); //later generateHTML
+        const HTMLContent = generateHTML.concatHTML(); // move
+        writeToFile("./dist/index.html", HTMLContent); //move
       }
     })
     .catch((err) => console.error(err));

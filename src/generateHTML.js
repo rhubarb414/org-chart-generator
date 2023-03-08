@@ -16,13 +16,21 @@ let starterHTML = `<!DOCTYPE html>
     </nav>
     `;
 
-let footerHTML = ` <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+const footerHTML = ` <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
 </script>
 </body>
 </html>
 `;
 
-const concatHTML = () => starterHTML + footerHTML;
+const rowOpen = `
+<div class="row">
+`;
+
+const rowClose = `
+</div>
+`;
+
+// const concatHTML = () => starterHTML + footerHTML;
 
 // const generateHTML = (data) =>
 //   `<!DOCTYPE html>
@@ -60,9 +68,80 @@ const concatHTML = () => starterHTML + footerHTML;
 //     </html>
 //     `;
 
+// const addManagerHTML = (data) => {
+//   starterHTML += `<div class="card" style="width: 18rem;">
+//     <div class="card-header man">
+//         <h5 class="card-title text-light">${data.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
+//     </div>
+//     <div class="card-body">
+//         <li class="list-group-item"><span class="fw-bold">ID:</span>${
+//           data.id
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">Email:</span>${
+//           data.email
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">Office Number:</span> ${
+//           data.officeNumber
+//         }</li>
+//     </div>
+// </div>
+// `;
+//   console.log(starterHTML);
+// };
+
+// const addEngineerHTML = (data) => {
+//   starterHTML += `<div class="card" style="width: 18rem;">
+//     <div class="card-header eng">
+//         <h5 class="card-title text-light">${data.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
+//     </div>
+//     <div class="card-body">
+//         <li class="list-group-item"><span class="fw-bold">ID:</span>${
+//           data.id
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">Email:</span>${
+//           data.email
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">GitHub:</span> <a href="#">${
+//           data.github
+//         }</a></li>
+//     </div>
+// </div>
+// `;
+//   console.log(starterHTML);
+// };
+// const addInternHTML = (data) => {
+//   starterHTML += `<div class="card" style="width: 18rem;">
+//     <div class="card-header int">
+//         <h5 class="card-title text-light">${data.name}</h5>
+//         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
+//     </div>
+//     <div class="card-body">
+//         <li class="list-group-item"><span class="fw-bold">ID:</span>${
+//           data.id
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">Email:</span>${
+//           data.email
+//         }</li>
+//         <li class="list-group-item"><span class="fw-bold">School:</span> <a href="#">${
+//           data.school
+//         }</a></li>
+//     </div>
+// </div>
+// `;
+//   console.log(starterHTML);
+// };
+
+// -----
+
+let managerHTML = "";
+let engineerHTML = "";
+let internHTML = "";
+
 const addManagerHTML = (data) => {
-  starterHTML += `<div class="card" style="width: 18rem;">
-    <div class="card-header">
+  managerHTML += `<div class="card" style="width: 18rem;">
+    <div class="card-header mgr">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
     </div>
@@ -83,8 +162,8 @@ const addManagerHTML = (data) => {
 };
 
 const addEngineerHTML = (data) => {
-  starterHTML += `<div class="card" style="width: 18rem;">
-    <div class="card-header">
+  engineerHTML += `<div class="card" style="width: 18rem;">
+    <div class="card-header eng">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
     </div>
@@ -104,8 +183,8 @@ const addEngineerHTML = (data) => {
   console.log(starterHTML);
 };
 const addInternHTML = (data) => {
-  starterHTML += `<div class="card" style="width: 18rem;">
-    <div class="card-header">
+  internHTML += `<div class="card" style="width: 18rem;">
+    <div class="card-header int">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
     </div>
@@ -125,10 +204,47 @@ const addInternHTML = (data) => {
   console.log(starterHTML);
 };
 
+const concatHTML = () =>
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="../src/css/style.css">
+    <title>Org Chart Generator</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container-fluid justify-content-center">
+         <span class="navbar-brand mb-0 h1 text-light">Org Chart</span>
+        </div>
+    </nav>
+    <div class="row">
+    ${managerHTML}
+    </div>
+    <div class ="row">
+    ${engineerHTML}
+    </div>
+    <div class = "row">
+    ${internHTML}
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+</script>
+</body>
+</html>
+`;
+
+// --------
+
 module.exports = {
-  //   generateHTML,
   addManagerHTML,
   addEngineerHTML,
   addInternHTML,
+  concatHTML,
+  rowOpen,
+  rowClose,
   starterHTML,
 };
