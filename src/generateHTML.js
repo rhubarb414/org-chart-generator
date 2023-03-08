@@ -21,7 +21,6 @@ const addManagerHTML = (data) => {
     </div>
 </div>
 `;
-  console.log(starterHTML);
 };
 
 const addEngineerHTML = (data) => {
@@ -43,8 +42,8 @@ const addEngineerHTML = (data) => {
     </div>
 </div>
 `;
-  console.log(starterHTML);
 };
+
 const addInternHTML = (data) => {
   internHTML += `<div class="card" style="width: 18rem;">
     <div class="card-header int">
@@ -64,7 +63,6 @@ const addInternHTML = (data) => {
     </div>
 </div>
 `;
-  console.log(starterHTML);
 };
 
 const concatHTML = () =>
@@ -84,13 +82,16 @@ const concatHTML = () =>
          <span class="navbar-brand mb-0 h1 text-light">Org Chart</span>
         </div>
     </nav>
-    <div class="row">
+
+    <div class="row m-4 justify-content-center">
     ${managerHTML}
     </div>
-    <div class ="row">
+
+    <div class="row m-4 justify-content-center">
     ${engineerHTML}
     </div>
-    <div class = "row">
+
+    <div class="row m-4 justify-content-center">
     ${internHTML}
     </div>
 
