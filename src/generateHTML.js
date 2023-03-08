@@ -3,7 +3,7 @@ let engineerHTML = "";
 let internHTML = "";
 
 const addManagerHTML = (data) => {
-  managerHTML += `<div class="card" style="width: 18rem;">
+  managerHTML += `<div class="card m-1" style="width: 18rem;">
     <div class="card-header mgr">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
@@ -12,9 +12,9 @@ const addManagerHTML = (data) => {
         <li class="list-group-item"><span class="fw-bold">ID:</span>${
           data.id
         }</li>
-        <li class="list-group-item"><span class="fw-bold">Email:</span>${
+        <li class="list-group-item"><span class="fw-bold">Email:</span> <a href="mailto:${
           data.email
-        }</li>
+        }">${data.email}</a></li>
         <li class="list-group-item"><span class="fw-bold">Office Number:</span> ${
           data.officeNumber
         }</li>
@@ -24,7 +24,7 @@ const addManagerHTML = (data) => {
 };
 
 const addEngineerHTML = (data) => {
-  engineerHTML += `<div class="card" style="width: 18rem;">
+  engineerHTML += `<div class="card m-1" style="width: 18rem;">
     <div class="card-header eng">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
@@ -33,19 +33,19 @@ const addEngineerHTML = (data) => {
         <li class="list-group-item"><span class="fw-bold">ID:</span>${
           data.id
         }</li>
-        <li class="list-group-item"><span class="fw-bold">Email:</span>${
+        <li class="list-group-item"><span class="fw-bold">Email:</span> <a href="mailto:${
           data.email
-        }</li>
-        <li class="list-group-item"><span class="fw-bold">GitHub:</span> <a href="#">${
+        }">${data.email}</a></li>
+        <li class="list-group-item"><span class="fw-bold">GitHub:</span> <a href="http://github.com/${
           data.github
-        }</a></li>
+        }" target=_blank>${data.github}</a></li>
     </div>
 </div>
 `;
 };
 
 const addInternHTML = (data) => {
-  internHTML += `<div class="card" style="width: 18rem;">
+  internHTML += `<div class="card m-1" style="width: 18rem;">
     <div class="card-header int">
         <h5 class="card-title text-light">${data.name}</h5>
         <h6 class="card-subtitle mb-2 text-light">${data.getRole()}</h6>
@@ -54,12 +54,12 @@ const addInternHTML = (data) => {
         <li class="list-group-item"><span class="fw-bold">ID:</span>${
           data.id
         }</li>
-        <li class="list-group-item"><span class="fw-bold">Email:</span>${
+        <li class="list-group-item"><span class="fw-bold">Email:</span> <a href="mailto:${
           data.email
-        }</li>
-        <li class="list-group-item"><span class="fw-bold">School:</span> <a href="#">${
+        }">${data.email}</a></li>
+        <li class="list-group-item"><span class="fw-bold">School:</span>${
           data.school
-        }</a></li>
+        }</li>
     </div>
 </div>
 `;
