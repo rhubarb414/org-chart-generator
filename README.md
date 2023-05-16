@@ -19,10 +19,7 @@ After starting the app, follow the pormpts in the command line. You'll need to s
 When you're finished adding employees, an html file will be created in the dist folder.
 
 View this video walkthrough:
-
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+[https://drive.google.com/file/d/1ygOYjPJ_vx6_dRVbUr9y64r8rV_zXGNQ/view?usp=sharing](https://drive.google.com/file/d/1ygOYjPJ_vx6_dRVbUr9y64r8rV_zXGNQ/view?usp=sharing)
 
 ## License
 
