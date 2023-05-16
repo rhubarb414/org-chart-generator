@@ -8,4 +8,12 @@ describe('Manager class', () => {
       expect(officeNumber).toEqual(666);
     });
   });
+
+  describe('getRole method', () => {
+    it('should return a string', () => {
+      const manager = new Manager('Lauren', 1, 'lauren@gmail.com', 666);
+      const role = manager.getRole();
+      expect(role).toBe('Manager');
+    });
+  });
 });
